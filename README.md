@@ -81,8 +81,4 @@ Foram testados login válido, rejeição de senha incorreta, logout, isolamento 
 
 ## Demonstração
 
-O link do vídeo demonstrativo será incluído após sua publicação.
-
-## Autoria
-
-Projeto acadêmico. Preencha com os nomes dos integrantes e as informações solicitadas pela disciplina.
+[Vídeo](https://youtu.be/F1JnZ7DGQ8c)
