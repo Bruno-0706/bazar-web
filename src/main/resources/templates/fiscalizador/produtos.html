@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos do Lote - Bazar</title>
+</head>
+<body>
+    <h1>
+        Produtos do lote
+        <strong th:text="${lote.id}">ID do lote</strong>
+    </h1>
+
+    <p>
+        Fiscalizador:
+        <strong th:text="${usuario.nome}">Nome do fiscalizador</strong>
+    </p>
+
+    <h2>Produtos cadastrados</h2>
+
+    <p th:if="${erro}" th:text="${erro}" style="color: red;"></p>
+
+    <p th:if="${#lists.isEmpty(produtos)}">
+        Este lote ainda não possui produtos cadastrados.
+    </p>
+
+    <table th:unless="${#lists.isEmpty(produtos)}" border="1">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="produto : ${produtos}">
+                <td th:text="${produto.codigo}"></td>
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.descricao != null
+                    and !produto.descricao.isBlank()
+                    ? produto.descricao
+                    : '-'}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <a th:href="@{/fiscalizador/lotes}">
+            Voltar para meus lotes
+        </a>
+    </p>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Sair</button>
+    </form>
+</body>
+</html>

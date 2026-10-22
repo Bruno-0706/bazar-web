@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doar Lote - Bazar</title>
+</head>
+<body>
+    <h1>Doar lote</h1>
+
+    <p>
+        Fiscalizador:
+        <strong th:text="${usuario.nome}">Nome do fiscalizador</strong>
+    </p>
+
+    <p>
+        Lote selecionado:
+        <strong th:text="${lote.id}">ID</strong>
+    </p>
+
+    <p>
+        Observação:
+        <span th:text="${lote.observacao != null
+            and !lote.observacao.isBlank()
+            ? lote.observacao
+            : '-'}">Observação</span>
+    </p>
+
+    <p th:if="${erro}" th:text="${erro}" style="color: red;"></p>
+
+    <form th:action="@{/fiscalizador/lotes/{id}/doar(id=${lote.id})}"
+          method="post">
+
+        <div>
+            <label for="donatarioId">Instituição donatária:</label>
+
+            <select id="donatarioId" name="donatarioId" required>
+                <option value="">Selecione uma instituição</option>
+
+                <option th:each="donatario : ${donatarios}"
+                        th:value="${donatario.id}"
+                        th:text="${donatario.nome}">
+                </option>
+            </select>
+        </div>
+
+        <button type="submit">Confirmar doação</button>
+    </form>
+
+    <p>
+        <a th:href="@{/fiscalizador/lotes}">
+            Cancelar e voltar para meus lotes
+        </a>
+    </p>
+</body>
+</html>

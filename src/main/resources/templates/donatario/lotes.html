@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotes Recebidos - Bazar</title>
+</head>
+<body>
+    <h1>Área do Donatário</h1>
+
+    <p>
+        Bem-vindo,
+        <strong th:text="${usuario.nome}">Nome da instituição</strong>!
+    </p>
+
+    <h2>Meus lotes recebidos</h2>
+
+    <p th:if="${erro}" th:text="${erro}" style="color: red;"></p>
+
+    <p th:if="${#lists.isEmpty(lotes)}">
+        Você ainda não recebeu nenhum lote.
+    </p>
+
+    <table th:unless="${#lists.isEmpty(lotes)}" border="1">
+        <thead>
+            <tr>
+                <th>ID do lote</th>
+                <th>Data da entrega</th>
+                <th>Observação</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="lote : ${lotes}">
+                <td th:text="${lote.id}"></td>
+
+                <td th:text="${lote.dataEntrega != null
+                    ? #temporals.format(lote.dataEntrega, 'dd/MM/yyyy')
+                    : 'Não definida'}"></td>
+
+                <td th:text="${lote.observacao != null
+                    and !lote.observacao.isBlank()
+                    ? lote.observacao
+                    : '-'}"></td>
+
+                <td th:text="${lote.status}"></td>
+
+                <td>
+                    <a th:href="@{/donatario/lotes/{id}/produtos(id=${lote.id})}">
+                        Visualizar produtos
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Sair</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Lote - Bazar</title>
+</head>
+<body>
+    <h1>Cadastrar novo lote</h1>
+
+    <p>
+        Fiscalizador:
+        <strong th:text="${usuario.nome}">Nome do fiscalizador</strong>
+    </p>
+
+    <p th:if="${erro}" th:text="${erro}" style="color: red;"></p>
+
+    <form th:action="@{/fiscalizador/lotes/novo}" method="post">
+        <div>
+            <label for="dataEntrega">Data de entrega:</label>
+            <input
+                type="date"
+                id="dataEntrega"
+                name="dataEntrega">
+        </div>
+
+        <div>
+            <label for="observacao">Observação:</label>
+            <textarea
+                id="observacao"
+                name="observacao"
+                rows="4"
+                maxlength="1000"></textarea>
+        </div>
+
+        <button type="submit">Cadastrar lote</button>
+    </form>
+
+    <p>
+        <a th:href="@{/fiscalizador/lotes}">Voltar para meus lotes</a>
+    </p>
+</body>
+</html>

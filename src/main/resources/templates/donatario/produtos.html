@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos Recebidos - Bazar</title>
+</head>
+<body>
+    <h1>
+        Produtos do lote
+        <strong th:text="${lote.id}">ID do lote</strong>
+    </h1>
+
+    <p>
+        Donatário:
+        <strong th:text="${usuario.nome}">Nome da instituição</strong>
+    </p>
+
+    <p>
+        Observação:
+        <span th:text="${lote.observacao != null
+            and !lote.observacao.isBlank()
+            ? lote.observacao
+            : '-'}">Observação do lote</span>
+    </p>
+
+    <h2>Produtos recebidos</h2>
+
+    <p th:if="${#lists.isEmpty(produtos)}">
+        Este lote não possui produtos cadastrados.
+    </p>
+
+    <table th:unless="${#lists.isEmpty(produtos)}" border="1">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="produto : ${produtos}">
+                <td th:text="${produto.codigo}"></td>
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.descricao != null
+                    and !produto.descricao.isBlank()
+                    ? produto.descricao
+                    : '-'}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <a th:href="@{/donatario/lotes}">
+            Voltar para meus lotes
+        </a>
+    </p>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Sair</button>
+    </form>
+</body>
+</html>
